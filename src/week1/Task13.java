@@ -2,7 +2,7 @@ package week1;
 
 import java.util.Scanner;
 
-public class task12 {
+public class Task13 {
 	
 	public static void main(String[] arg) {
 		
@@ -10,17 +10,22 @@ public class task12 {
 		
 		System.out.print("Enter the number - ");
 		int number = scanner.nextInt();
-		scanner.close();
 		
-		int[] array = new int[number];
+		int[] array = new int[40];
 		array[0] = 0;
 		array[1] = 1;
-		
-		for (int i = 2; i < number; i++) {
-			array[i] = array[i-1] + array[i-2]; 
-		}
-		System.out.println(array[number-1]);
+		int i = 1;
+		while (array[i] <= number) {
 
+			array[i+1] = array[i] + array[i-1];
+			i++;
+
+		}
+		if (array[i-1] == number) {
+			System.out.println(i);
+		}else {
+			System.out.println(-1);
+		}
 	}
 
 }
