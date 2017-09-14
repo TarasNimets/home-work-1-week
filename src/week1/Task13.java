@@ -12,22 +12,22 @@ public class Task13 {
 		int number = scanner.nextInt();
 		
 		if (number == 1) {
-			System.out.println("2 and 3");
+			System.out.println("1 and 2");
+			return;
+		} else if (number == 0) {
+			System.out.println(0);
 			return;
 		}
 		
-		int[] array = new int[40];
-		array[0] = 0;
-		array[1] = 1;
+		int a = 0, b = 1, c = 0;
 		int i = 1;
-		while (array[i] <= number) {
-
-			array[i+1] = array[i] + array[i-1];
-			System.out.print(array[i]);
+		while (c < number) {
+			c = a + b;
+			a = b;
+			b = c;
 			i++;
-
 		}
-		if (array[i-1] == number) {
+		if (c == number) {
 			System.out.println(i);
 		}else {
 			System.out.println(-1);
