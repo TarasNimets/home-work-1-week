@@ -23,6 +23,7 @@ public class Task13 {
 		while (array[i] <= number) {
 
 			array[i+1] = array[i] + array[i-1];
+			System.out.print(array[i]);
 			i++;
 
 		}
