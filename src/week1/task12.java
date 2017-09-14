@@ -12,14 +12,16 @@ public class Task12 {
 		int number = scanner.nextInt();
 		scanner.close();
 		
-		int[] array = new int[number];
-		array[0] = 0;
-		array[1] = 1;
+//		int[] array = new int[number];
+//		array[0] = 0;
+//		array[1] = 1;
+//		
+//		for (int i = 2; i < number; i++) {
+//			array[i] = array[i-1] + array[i-2]; 
+//		}
+//		System.out.println(array[number-1]);
 		
-		for (int i = 2; i < number; i++) {
-			array[i] = array[i-1] + array[i-2]; 
-		}
-		System.out.println(array[number-1]);
+		int a = 0, b = 1;
 
 	}
 
