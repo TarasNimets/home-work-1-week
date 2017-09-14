@@ -16,7 +16,7 @@ public class task3 {
 		int division = number % 7;
 		
 		if (division == 0) {
-			System.out.println("Square number - " + (number * number));
+			System.out.println("Square number - " + (number * 2));
 		}else {
 			System.out.println("The number is not divisible by 7 without a residual");
 		}
