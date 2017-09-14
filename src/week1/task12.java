@@ -15,12 +15,11 @@ public class task12 {
 		int[] array = new int[number];
 		array[0] = 0;
 		array[1] = 1;
-		
+		int k = 0;
 		for (int i = 2; i < number; i++) {
 			array[i] = array[i-1] + array[i-2]; 
 		}
-
-		System.out.println(array[number]);
+		System.out.println(array[number-1]);
 
 	}
 
