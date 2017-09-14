@@ -2,7 +2,7 @@ package week1;
 
 import java.util.Scanner;
 
-public class task6 {
+public class Task6 {
 
 	public static void main(String[] arg) {
 		
@@ -17,7 +17,7 @@ public class task6 {
 		
 		int sum = firstNumber + secondNumber;
 		
-		if (sum >= 11 && sum <=19) {
+		if (sum >= 11 && sum <= 19) {
 			System.out.println("Sum of numbers in range with 11 to 19");
 		}else {
 			System.out.println("Sum of numbers isn't in range with 11 to 19");

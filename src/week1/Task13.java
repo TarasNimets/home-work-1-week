@@ -11,6 +11,11 @@ public class Task13 {
 		System.out.print("Enter the number - ");
 		int number = scanner.nextInt();
 		
+		if (number == 1) {
+			System.out.println("2 and 3");
+			return;
+		}
+		
 		int[] array = new int[40];
 		array[0] = 0;
 		array[1] = 1;

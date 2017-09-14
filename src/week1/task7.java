@@ -2,7 +2,7 @@ package week1;
 
 import java.util.Scanner;
 
-public class task7 {
+public class Task7 {
 	
 	public static void main(String[] arg) {
 		
