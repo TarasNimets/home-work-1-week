@@ -17,39 +17,23 @@ public class Task5 {
 		System.out.print("Enter the thrid number - ");
 		int thridNumber = scanner.nextInt();
 				
-		if (firstNumber < 11 && secondNumber < 11 && thridNumber < 11) {
-			System.out.println("All nambers hasn't the same pairs");
+		if (firstNumber == secondNumber && firstNumber == thridNumber) {
+			System.out.println("All nambers are the same");
 			return;
+		}else if(firstNumber == secondNumber) {
+			System.out.println("First and second numbers are the same");
+			return;
+		}else if(firstNumber == thridNumber) {
+			System.out.println("First and thrid numbers are the same");
+			return;
+		}else if (secondNumber == thridNumber) {
+			System.out.println("Second and third numbers are the same");
+			return;
+		}else {
+			System.out.println("They are not the same");
 		}
-		math(firstNumber);
-		math(secondNumber);
-		math(thridNumber);
+			
 	
 	}
-	
-	public static void math(int number) {
-		int numberInA = number, numberInB = number;
-		int tempA = numberInA, tempB, lastNumberB, count = 0, lastNumberA;
-		
-		while (tempA > 0) {
-			lastNumberA = tempA % 10;
-			tempA /= 10;
-			tempB = numberInB;
-			count = 0;
-			while (tempB> 0) {
-				lastNumberB = tempB % 10;
-				tempB /= 10;
-				if (lastNumberA == lastNumberB) {
-					count++;
-				}
-			}
-		}
-		if (count > 1) {
-			System.out.println("Number " + numberInA + " has the same pairs");
-			return;
-		}
-
-		
-	}
-		
+			
 }

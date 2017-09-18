@@ -14,9 +14,8 @@ public class Task6 {
 		System.out.print("Enter the distance in m - ");
 		double distance = scanner.nextDouble();
 		
-		double time = distance / speed * 100.0;
-		int temp = (int) Math.round(time);
-		time = (double) temp / 100;
+		double time = distance / speed * 100;
+		time /= 100;
 		System.out.println("Time of ride = " + time + "s");
 	
 	}
