@@ -13,7 +13,7 @@ public class Task15 {
 		double areaSquare = scanner.nextDouble();
 		
 		double aSquare = Math.sqrt(areaSquare);
-		double dCircle = Math.sqrt((areaCircle * 4 / 3.14));
+		double dCircle = Math.sqrt((areaCircle * 4 / Math.PI));
 		double diagonalSquare = Math.sqrt((2 * aSquare * aSquare));
 		
 		System.out.println("aSquare " + aSquare);

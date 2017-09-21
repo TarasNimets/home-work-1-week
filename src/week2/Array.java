@@ -19,7 +19,7 @@ public class Array {
         add(2);
         add(10);
         add(5);
-//        add(2);
+        add(2);
 //        add(2);
 //        add(13);
 //        add(1);
