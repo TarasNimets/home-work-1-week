@@ -19,31 +19,33 @@ public class Array {
         add(2);
         add(10);
         add(5);
-        add(2);
-        add(2);
-        add(13);
-        add(1);
-        add(7);
-        add(9);
+//        add(2);
+//        add(2);
+//        add(13);
+//        add(1);
+//        add(7);
+//        add(9);
         
 
         System.out.println(get(4));
 
-        sort();
+//        sort();
 
         System.out.println(search(2));
 
-//        add(1, 10);        
+        add(8, 99); 
+        
+//        System.out.println(replace(7, 10));
 
-//        System.out.println(remove(7));
+//        System.out.println(remove(0));
 
-//        System.out.println(removeValue(7));
+//        System.out.println(removeValue(10));
 
 //        invert();
 
 //        System.out.println(Arrays.toString(subArray(3, 8)));
 
-        System.out.println(getString());
+//        System.out.println(getString());
         
         for (int i = 0; i < nums.length; i++) {
         	System.out.print(nums[i] + " ");
@@ -51,7 +53,6 @@ public class Array {
         System.out.println(" ");
         System.out.println("size = " + size);
         System.out.println("nums.length = " + nums.length);
-        
         
 
     }
@@ -115,47 +116,47 @@ public class Array {
     	}
         return -1;
     }
-
+    
     /**
-     * Add new value or replace old value
-     * @return return old value or -1.
-     * @param index of nums
-     * @param value for insert.
+     * Inserts the specified element at the specified position in this
+     * list. Shifts the element currently at that position (if any) and
+     * any subsequent elements to the right (adds one to their indices).
      *
-     * @throws ArrayIndexOutOfBoundsException if no such
-     *         index in nums.
+     * @param index index at which the specified element is to be inserted
+     * @param value element to be inserted
+     * @throws IndexOutOfBoundsException if no such
+     *          index in nums.
      */
+    
     private static int add(int index, int value) {
-//        if (index < nums.length) {
-//        	int oldValue = nums[index];
-//        	nums[index] = value;
-//        	return oldValue;
-//        }else {
-//        	while (index > nums.length) {
-//        		copyArray();
-//        	}
-//        	nums[index] = value;
-//            return -1;
-//        }
-//    	or
-//    	if (index < nums.length) {
-//    		int oldValue = nums[index];
-//    		nums[index] = value;
-//    		return oldValue;
-//    	}else {
-//    		add(value);
-//    		return -1;
-//    	}
-    	
-//        or
-        if (index <= size) {
-        	int oldValue = nums[index];
-        	nums[index] = value;
-        	return oldValue;
-        }else {
-        	nums[index] = value;
-        	return -1;
-        }
+    	int oldValue = nums[index];
+    	int[] newArray = new int[nums.length + 1];
+    	if (index == 0) {
+    		System.arraycopy(nums, 0, newArray, 1, nums.length);
+    	}else {
+    		System.arraycopy(nums, 0, newArray, 0, index);
+    		System.arraycopy(nums, index, newArray, index + 1, nums.length - index);
+    	}
+		newArray[index] = value;
+		size++;
+		nums = newArray;
+    	return oldValue;
+    }
+    
+    /**
+     * Replaces the element at the specified position in this list with
+     * the specified element.
+     *
+     * @param index index of the element to replace
+     * @param value element to be stored at the specified position
+     * @return the element previously at the specified position
+     * @throws IndexOutOfBoundsException if no such
+     *          index in nums.
+     */
+    private static int replace(int index, int value) {
+    	int oldValue = nums[index];
+    	nums[index] = value;
+    	return oldValue;
     }
 
     /**
@@ -166,6 +167,11 @@ public class Array {
      */
     private static int remove(int index) {
         int oldValue = nums[index];
+        removeAdd(index); 
+        return oldValue;
+    }
+    
+    private static void removeAdd (int index) {
         int[] newArray = new int[nums.length];
         if (index == 0) {
         	System.arraycopy(nums, 1, newArray, 0, nums.length - 1);
@@ -176,7 +182,6 @@ public class Array {
             size--;
         }
         nums = newArray;
-        return oldValue;
     }
 
     /**
@@ -187,16 +192,7 @@ public class Array {
         int count = 0;
     	for (int i = 0; i < nums.length; i++) {
         	if (nums[i] == value) {
-                int[] newArray = new int[nums.length];
-                if (i == 0) {
-                	System.arraycopy(nums, 1, newArray, 0, nums.length - 1);
-                	size--;
-                }else {
-                    System.arraycopy(nums, 0, newArray, 0, i);
-                    System.arraycopy(nums, i + 1, newArray, i, nums.length - (i + 1));
-                    size--;
-                }
-                nums = newArray;
+        		removeAdd(i);
                 count++;
                 i--;
         	}
