@@ -20,11 +20,11 @@ public class Array {
         add(10);
         add(5);
         add(2);
-//        add(2);
-//        add(13);
-//        add(1);
-//        add(7);
-//        add(9);
+        add(2);
+        add(13);
+        add(1);
+        add(7);
+        add(9);
         
 
         System.out.println(get(4));
@@ -83,7 +83,6 @@ public class Array {
      *         index in nums.
      */
     private static int get(int index) {
-        if (index >= nums.length) return -1;
     	return nums[index];
     }
 
@@ -136,8 +135,8 @@ public class Array {
 //        		copyArray();
 //        	}
 //        	nums[index] = value;
+//            return -1;
 //        }
-//        return -1;
 //    	or
 //    	if (index < nums.length) {
 //    		int oldValue = nums[index];
@@ -145,10 +144,10 @@ public class Array {
 //    		return oldValue;
 //    	}else {
 //    		add(value);
+//    		return -1;
 //    	}
-//    	return -1;
+    	
 //        or
-        if (index >= nums.length) return -1;
         if (index <= size) {
         	int oldValue = nums[index];
         	nums[index] = value;
@@ -166,7 +165,6 @@ public class Array {
      *          index in nums.
      */
     private static int remove(int index) {
-        if (index >= nums.length) return -1;
         int oldValue = nums[index];
         int[] newArray = new int[nums.length];
         if (index == 0) {
@@ -231,9 +229,6 @@ public class Array {
      *         indexes in nums.
      */
     private static int[] subArray(int from, int to) {
-        if (from >= nums.length || to >= nums.length || from > to) {
-        	return null;
-        }
         int lenght = to - from + 1;
         int[] newArray = new int[lenght];
         System.arraycopy(nums, from, newArray, 0, lenght);
