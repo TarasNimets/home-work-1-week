@@ -33,13 +33,13 @@ public class Array {
 
         System.out.println(search(2));
 
-        add(8, 99); 
+        add(0, 99); 
         
 //        System.out.println(replace(7, 10));
 
 //        System.out.println(remove(0));
 
-//        System.out.println(removeValue(10));
+        System.out.println(removeValue(99));
 
 //        invert();
 
@@ -131,12 +131,8 @@ public class Array {
     private static int add(int index, int value) {
     	int oldValue = nums[index];
     	int[] newArray = new int[nums.length + 1];
-    	if (index == 0) {
-    		System.arraycopy(nums, 0, newArray, 1, nums.length);
-    	}else {
     		System.arraycopy(nums, 0, newArray, 0, index);
     		System.arraycopy(nums, index, newArray, index + 1, nums.length - index);
-    	}
 		newArray[index] = value;
 		size++;
 		nums = newArray;
@@ -173,14 +169,9 @@ public class Array {
     
     private static void removeAdd (int index) {
         int[] newArray = new int[nums.length];
-        if (index == 0) {
-        	System.arraycopy(nums, 1, newArray, 0, nums.length - 1);
-        	size--;
-        }else {
             System.arraycopy(nums, 0, newArray, 0, index);
             System.arraycopy(nums, index + 1, newArray, index, nums.length - (index + 1));
             size--;
-        }
         nums = newArray;
     }
 
