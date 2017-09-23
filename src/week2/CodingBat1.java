@@ -61,7 +61,7 @@ public class CodingBat1 {
 //			startHi("hi") → true
 //			startHi("hello hi") → false
 	public static boolean startHi(String str) {
-		  return str.length() >= 2 ? str.charAt(0) == 'h' && str.charAt(1) == 'i' : false;
+			return str.startsWith("hi");
 		}
 	
 //	Given two temperatures, return true if one is less than 0 and the other is greater than 100.

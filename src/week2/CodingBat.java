@@ -33,7 +33,7 @@ public class CodingBat {
 	// Return true if we are in trouble.
 
 	public static boolean monkeyTrouble(boolean aSmile, boolean bSmile) {
-		return ((aSmile == true && bSmile == true) || (aSmile == false && bSmile == false));
+		return aSmile == bSmile;
 	}
 
 	// Given two int values, return their sum. Unless the two values are the same,
@@ -67,7 +67,7 @@ public class CodingBat {
 	// parrotTrouble(false, 6) → false
 
 	public static boolean parrotTrouble(boolean talking, int hour) {
-		return (talking == true) && (hour < 7 || hour > 20);
+		return talking == true && (hour < 7 || hour > 20);
 	}
 	
 //	Given 2 ints, a and b, return true if one if them is 10 or if their sum is 10.
@@ -96,7 +96,7 @@ public class CodingBat {
 //			posNeg(-1, 1, false) → true
 //			posNeg(-4, -5, true) → true
 	public static boolean posNeg(int a, int b, boolean negative) {
-		  return negative == true ? a < 0 && b < 0 : a < 0 && b > 0 || b < 0 && a > 0;
+		  return negative ? a < 0 && b < 0 : a < 0 && b > 0 || b < 0 && a > 0;
 		}
 	
 //	Given a string, return a new string where "not " has been added to the front. However, 
@@ -107,7 +107,7 @@ public class CodingBat {
 //			notString("not bad") → "not bad"
 	
 	public static String notString(String str) {
-		  return str.length() >= 3 && str.substring(0,3).equals("not") ? str : "not " + str;
+		  return str.startsWith("not") ? str : "not " + str;
 		}
 	
 //	Given a non-empty string and an int n, return a new string where the char at index n has been removed. 
@@ -126,7 +126,7 @@ public class CodingBat {
 //			frontBack("a") → "a"
 //			frontBack("ab") → "ba"
 	public static String frontBack(String str) {
-		  return str.length() > 1 ? "" + str.charAt(str.length() - 1) + str.substring(1, str.length()-1) + str.charAt(0) : str;
+		return str.length() > 1 ? "" + str.charAt(str.length() - 1) + str.substring(1, str.length()-1) + str.charAt(0) : str;
 	}
 
 }
