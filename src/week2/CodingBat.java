@@ -24,15 +24,9 @@ public class CodingBat {
 	// vacation. Return true if we sleep in.
 
 	public static boolean sleepIn(boolean weekday, boolean vacation) {
-		if (weekday == false && vacation == false)
-			return true;
-		else if (weekday == false && vacation == true)
-			return true;
-		else if (weekday == true && vacation == true)
-			return true;
-		return false;
-	}
-
+		  return !weekday || vacation;
+		}
+	
 	// We have two monkeys, a and b, and the parameters aSmile and bSmile indicate
 	// if each is smiling.
 	// We are in trouble if they are both smiling or if neither of them is smiling.
