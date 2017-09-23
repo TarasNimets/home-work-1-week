@@ -67,7 +67,7 @@ public class CodingBat {
 	// parrotTrouble(false, 6) → false
 
 	public static boolean parrotTrouble(boolean talking, int hour) {
-		return talking == true && (hour < 7 || hour > 20);
+		return talking && (hour < 7 || hour > 20);
 	}
 	
 //	Given 2 ints, a and b, return true if one if them is 10 or if their sum is 10.
