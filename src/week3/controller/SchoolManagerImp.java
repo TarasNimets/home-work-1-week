@@ -54,7 +54,6 @@ public class SchoolManagerImp implements SchoolManager {
 		Student studentString = group.search(scanner.readString("Enter the first name"));
 		if (studentString != null) {
 			scanner.write(studentString);
-			scanner.readString("Enter anything to see the menu");
 		}else {
 			scanner.write("Did not search anithing");
 		}
@@ -74,27 +73,22 @@ public class SchoolManagerImp implements SchoolManager {
 		switch (inChoose) {
 		case SORT_BY_FIRST_NAME:{
 			scanner.write(group.getString(group.sortByFirstName()));
-			scanner.readString("Enter anything to see the menu");
 			break;
 		}
 		case SORT_BY_LAST_NAME:{
 			scanner.write(group.getString(group.sortByLastName()));
-			scanner.readString("Enter anything to see the menu");
 			break;
 		}
 		case SORT_BY_AGE:{
 			scanner.write(group.getString(group.sortByAge()));
-			scanner.readString("Enter anything to see the menu");
 			break;
 		}
 		case SORT_BY_AVERAGE_MAKR:{
 			scanner.write(group.getString(group.sortByAverageMark()));
-			scanner.readString("Enter anything to see the menu");
 			break;
 		}
 		case DEFAULT:{
 			scanner.write(group.getString());
-			scanner.readString("Enter anything to see the menu");
 		}
 		}
 
@@ -103,8 +97,6 @@ public class SchoolManagerImp implements SchoolManager {
 	@Override
 	public void showAllStudents() {
 		scanner.write(group.getString());
-		scanner.readString("Enter anything to see the menu");
-
 	}
 
 	@Override
