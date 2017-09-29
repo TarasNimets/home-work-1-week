@@ -106,6 +106,10 @@ public class StudentGroup {
     	for (int i = 0; i < size; i++) {
     		if (students[i].getFirstName().equals(firstNam)) return students[i];
     	}
+    	for (int i = 0; i < size; i++) {
+    		if (students[i].getLastName().equals(firstNam)) return students[i];
+    	}
+
     	return null;
     }
 
@@ -137,7 +141,7 @@ public class StudentGroup {
         return null;
     }
     
-    private int searchIndexID(int id) {
+    public int searchIndexID(int id) {
         for (int i = 0; i < size; i++) {
         	if (students[i].getID() == id) return i;
         }

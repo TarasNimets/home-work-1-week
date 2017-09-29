@@ -51,11 +51,27 @@ public class SchoolManagerImp implements SchoolManager {
 
 	@Override
 	public void searchStudent() {
-		Student studentString = group.search(scanner.readString("Enter the first name"));
-		if (studentString != null) {
-			scanner.write(studentString);
+//		Student studentString = group.search(scanner.readString("Enter the first name"));
+//		if (studentString != null) {
+//			scanner.write(studentString);
+//		}else {
+//			scanner.write("Did not search anithing");
+//		}
+		
+		scanner.write("Enter search option: id or first name or last name or first and last name - ");
+		if (!scanner.getScanner().hasNextInt()) {
+			String inName = scanner.readString();
+			if (inName.contains(" ")) {
+				int i = inName.lastIndexOf(" ");
+				int index = group.searchIndexName(inName.substring(0, i), inName.substring(i + 1));
+				if (index != -1) scanner.write(group.get(index));
+			}else {
+				Student searchStudent = group.search(inName);
+				if(searchStudent != null) scanner.write(searchStudent);
+			}
 		}else {
-			scanner.write("Did not search anithing");
+			int index = group.searchIndexID(scanner.readInt());
+			if (index != -1) scanner.write(group.get(index));
 		}
 	}
 

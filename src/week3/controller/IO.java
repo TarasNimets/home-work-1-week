@@ -34,4 +34,18 @@ public class IO implements MyScanner{
         return scanner.nextDouble();
     }
     
+    public Scanner getScanner() {
+    	return scanner;
+    }
+
+	@Override
+	public String readString() {
+		scanner.nextLine();
+		return scanner.nextLine();
+	}
+	
+    public int readInt() {
+        return scanner.nextInt();
+    }
+    
 }
