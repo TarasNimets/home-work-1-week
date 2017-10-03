@@ -23,8 +23,8 @@ public class Warmup2 {
 		System.out.println(warmup2.altPairs("Chocolate"));
 		System.out.println(warmup2.stringYak("yask123ya"));
 		System.out.println(warmup2.array667(new int[] { 6, 7, 2, 6 }));
-		System.out.println(warmup2.noTriples(new int[] {1, 1, 1, 2, 2, 2, 1}));
-		System.out.println(warmup2.has271(new int[] {1, 1, 1, 2, 7, 1, 1}));
+		System.out.println(warmup2.noTriples(new int[] { 1, 1, 1, 2, 2, 2, 1 }));
+		System.out.println(warmup2.has271(new int[] { 1, 1, 1, 2, 7, 1, 1 }));
 	}
 
 	// Given a string and a non-negative int n, return a larger string that is n
@@ -92,10 +92,7 @@ public class Warmup2 {
 	boolean doubleX(String str) {
 		for (int i = 0; i < str.length() - 1; i++) {
 			if (str.charAt(i) == 'x') {
-				if (str.charAt(i + 1) == 'x')
-					return true;
-				else
-					return false;
+				return str.charAt(i + 1) == 'x';
 			}
 		}
 		return false;
@@ -240,93 +237,111 @@ public class Warmup2 {
 	// stringX("abxxxcd") → "abcd"
 	// stringX("xabxxxcdx") → "xabcdx"
 	public String stringX(String str) {
-		if (str.length() == 0) return str;
+		if (str.length() == 0)
+			return str;
 		String[] array = str.split("x");
 		String newString = "";
-		if (str.charAt(0) == 'x') newString += str.charAt(0);
+		if (str.charAt(0) == 'x')
+			newString += str.charAt(0);
 		for (int i = 0; i < array.length; i++) {
 			newString += array[i];
 		}
-		if (str.charAt(str.length() - 1) == 'x' && str.length() != 1) newString += str.charAt(str.length() - 1);
+		if (str.charAt(str.length() - 1) == 'x' && str.length() != 1)
+			newString += str.charAt(str.length() - 1);
 		return newString;
 	}
-//	Given a string, return a string made of the chars at indexes 0,1, 4,5, 8,9 ... so "kittens" yields "kien".
-//
-//
-//			altPairs("kitten") → "kien"
-//			altPairs("Chocolate") → "Chole"
-//			altPairs("CodingHorror") → "Congrr"
+
+	// Given a string, return a string made of the chars at indexes 0,1, 4,5, 8,9
+	// ... so "kittens" yields "kien".
+	//
+	//
+	// altPairs("kitten") → "kien"
+	// altPairs("Chocolate") → "Chole"
+	// altPairs("CodingHorror") → "Congrr"
 	public String altPairs(String str) {
 		int n = 0;
 		String newStr = "";
 		for (int i = 0; i < str.length(); i++) {
-			if (i - n > 1) n += 4;
+			if (i - n > 1)
+				n += 4;
 			if (i == n || i == n + 1) {
 				newStr += str.charAt(i);
 			}
 		}
 		return newStr;
 	}
-//	Suppose the string "yak" is unlucky. Given a string, return a version where all the "yak" are removed, 
-//			but the "a" can be any char. The "yak" strings will not overlap.
-//
-//
-//			stringYak("yakpak") → "pak"
-//			stringYak("pakyak") → "pak"
-//			stringYak("yak123ya") → "123ya"
+
+	// Suppose the string "yak" is unlucky. Given a string, return a version where
+	// all the "yak" are removed,
+	// but the "a" can be any char. The "yak" strings will not overlap.
+	//
+	//
+	// stringYak("yakpak") → "pak"
+	// stringYak("pakyak") → "pak"
+	// stringYak("yak123ya") → "123ya"
 	public String stringYak(String str) {
 		String[] array = str.split("yak");
 		String newStr = "";
-		for (String arayStr: array) {
+		for (String arayStr : array) {
 			newStr += arayStr;
 		}
 		return newStr;
 	}
-//	Given an array of ints, return the number of times that two 6's are next to each other in the array.
-//			Also count instances where the second "6" is actually a 7.
-//
-//
-//			array667([6, 6, 2]) → 1
-//			array667([6, 6, 2, 6]) → 1
-//			array667([6, 7, 2, 6]) → 1
+
+	// Given an array of ints, return the number of times that two 6's are next to
+	// each other in the array.
+	// Also count instances where the second "6" is actually a 7.
+	//
+	//
+	// array667([6, 6, 2]) → 1
+	// array667([6, 6, 2, 6]) → 1
+	// array667([6, 7, 2, 6]) → 1
 	public int array667(int[] nums) {
 		int count = 0;
-		if (nums.length == 0) return count;
+		if (nums.length == 0)
+			return count;
 		for (int i = 0; i < nums.length - 1; i++) {
-			if (nums[i] == 6 && (nums[i + 1] == 6 || nums[i + 1] == 7)) count++;
+			if (nums[i] == 6 && (nums[i + 1] == 6 || nums[i + 1] == 7))
+				count++;
 		}
 		return count;
 	}
-//	Given an array of ints, we'll say that a triple is a value appearing 3 times in a row in the array. 
-//	Return true if the array does not contain any triples.
-//
-//
-//	noTriples([1, 1, 2, 2, 1]) → true
-//	noTriples([1, 1, 2, 2, 2, 1]) → false
-//	noTriples([1, 1, 1, 2, 2, 2, 1]) → false
+
+	// Given an array of ints, we'll say that a triple is a value appearing 3 times
+	// in a row in the array.
+	// Return true if the array does not contain any triples.
+	//
+	//
+	// noTriples([1, 1, 2, 2, 1]) → true
+	// noTriples([1, 1, 2, 2, 2, 1]) → false
+	// noTriples([1, 1, 1, 2, 2, 2, 1]) → false
 	public boolean noTriples(int[] nums) {
-		if (nums.length < 3) return true;
+		if (nums.length < 3)
+			return true;
 		for (int i = 0; i < nums.length - 2; i++) {
-			if (nums[i] == nums[i + 1] && nums[i] == nums[i + 2]) return false;
+			if (nums[i] == nums[i + 1] && nums[i] == nums[i + 2])
+				return false;
 		}
 		return true;
 	}
-//	Given an array of ints, return true if it contains a 2, 7, 1 pattern: a value, followed by the value plus 5,
-//			followed by the value minus 1. Additionally the 271 counts even if the "1" differs by 2 or less from the correct value.
-//
-//
-//			has271([1, 2, 7, 1]) → true
-//			has271([1, 2, 8, 1]) → false
-//			has271([2, 7, 1]) → true
+
+	// Given an array of ints, return true if it contains a 2, 7, 1 pattern: a
+	// value, followed by the value plus 5,
+	// followed by the value minus 1. Additionally the 271 counts even if the "1"
+	// differs by 2 or less from the correct value.
+	//
+	//
+	// has271([1, 2, 7, 1]) → true
+	// has271([1, 2, 8, 1]) → false
+	// has271([2, 7, 1]) → true
 	public boolean has271(int[] nums) {
-		if (nums.length < 3) return false;
+		if (nums.length < 3)
+			return false;
 		for (int i = 0; i < nums.length - 2; i++) {
-			if (nums[i + 1] == nums[i] + 5 && Math.abs(nums[i + 2] - (nums[i] - 1)) <= 2) return true;
+			if (nums[i + 1] == nums[i] + 5 && Math.abs(nums[i + 2] - (nums[i] - 1)) <= 2)
+				return true;
 		}
-		return false;		  
+		return false;
 	}
 
-
-	
-	
 }
