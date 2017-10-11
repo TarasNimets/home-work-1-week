@@ -1,7 +1,5 @@
 package week2;
 
-import java.util.Arrays;
-
 public class Array {
 	
     private static int[] nums = new int[10];
@@ -163,7 +161,11 @@ public class Array {
      */
     private static int remove(int index) {
         int oldValue = nums[index];
-        removeAdd(index); 
+        int[] newArray = new int[nums.length];
+        System.arraycopy(nums, 0, newArray, 0, index);
+        System.arraycopy(nums, index + 1, newArray, index, nums.length - (index + 1));
+        size--;
+        nums = newArray;
         return oldValue;
     }
     
