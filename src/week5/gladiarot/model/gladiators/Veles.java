@@ -1,4 +1,4 @@
-package week5.myLoveGame.model.gladiators;
+package week5.gladiarot.model.gladiators;
 
 public final class Veles extends Gladiator {
 

@@ -1,6 +1,8 @@
-package week5.myLoveGame.model.gladiators;
+package week5.gladiarot.model.gladiators;
 
-import week5.myLoveGame.model.weapons.Weapon;
+import week5.gladiarot.controller.Random;
+import week5.gladiarot.model.weapons.Weapon;
+import week5.gladiarot.model.weapons.WeaponsGroup;
 
 public abstract class Gladiator {
 
@@ -70,6 +72,32 @@ public abstract class Gladiator {
         this.mentality = mentality;
     }
 
+    private double hit() {
+        double damage = HANDS_HIT + Random.getRandom((strength + (weapons != null ? weapons.getStrength() : 0)) / 20)
+                + (weapons != null ? weapons.getAttack() : 0);
+        return (Random.chanceRandom(agility + (weapons != null ? weapons.getAgility() : 0))) ? damage *= 1.5 : damage;
+    }
+
+    public void takeWeapon() {
+        setWeapons(WeaponsGroup.getWeapon());
+    }
+
+    public double defence(Gladiator gladiator) {
+        if (sideStep()) return 0;
+        
+        double thisStrength = this.strength + (weapons != null ? weapons.getStrength() : 0);
+        double gladiatorDefence = gladiator.defence + (weapons != null ? weapons.getDefence() : 0); 
+       
+        if (thisStrength >= gladiatorDefence) {
+            return  hit() * (1.0 + (thisStrength - gladiatorDefence) / 30.0);
+        }
+        return hit() / (1.0 + (gladiatorDefence - thisStrength) / 30.0);
+    }
+    
+    private boolean sideStep() {
+        return (Random.chanceRandom(agility + (weapons != null ? weapons.getAgility() : 0))) ? true : false;
+    }
+    
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
