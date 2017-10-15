@@ -2,12 +2,11 @@ package week5.gladiarot.model.gladiators;
 
 import week5.gladiarot.controller.Random;
 import week5.gladiarot.model.weapons.Weapon;
-import week5.gladiarot.model.weapons.WeaponsGroup;
 
 public abstract class Gladiator {
 
-    private static final int HANDS_HIT = 5;
-    private static final int HEALTH = 100;
+    public static final int HANDS_HIT = 5;
+    public static final int HEALTH = 100;
 
     protected int strength;
     protected int defence;
@@ -22,10 +21,6 @@ public abstract class Gladiator {
 
     public void setWeapons(Weapon weapons) {
         this.weapons = weapons;
-    }
-
-    public int getHandsHit() {
-        return HANDS_HIT;
     }
 
     public int getHealth() {
@@ -73,31 +68,29 @@ public abstract class Gladiator {
     }
 
     private double hit() {
-        double damage = HANDS_HIT + Random.getRandom((strength + (weapons != null ? weapons.getStrength() : 0)) / 20)
+        return HANDS_HIT + Random.getRandom((strength + (weapons != null ? weapons.getStrength() : 0)) / 20)
                 + (weapons != null ? weapons.getAttack() : 0);
-        return (Random.chanceRandom(agility + (weapons != null ? weapons.getAgility() : 0))) ? damage *= 1.5 : damage;
-    }
-
-    public void takeWeapon() {
-        setWeapons(WeaponsGroup.getWeapon());
     }
 
     public double defence(Gladiator gladiator) {
         if (sideStep()) return 0;
-        
-        double thisStrength = this.strength + (weapons != null ? weapons.getStrength() : 0);
-        double gladiatorDefence = gladiator.defence + (weapons != null ? weapons.getDefence() : 0); 
-       
-        if (thisStrength >= gladiatorDefence) {
-            return  hit() * (1.0 + (thisStrength - gladiatorDefence) / 30.0);
+
+        double hitPower;
+        double thisDefence = defence + (weapons != null ? weapons.getDefence() : 0);
+        double gladiatorStrength = gladiator.strength + (gladiator.weapons != null ? gladiator.weapons.getStrength() : 0);
+
+        if (thisDefence < gladiatorStrength) {
+            hitPower = gladiator.hit() * (1.0 + (gladiatorStrength - thisDefence) / 30.0);
         }
-        return hit() / (1.0 + (gladiatorDefence - thisStrength) / 30.0);
+        hitPower = gladiator.hit() / (1.0 + (thisDefence - gladiatorStrength) / 30.0);
+        return (Random.chanceRandom(agility + (weapons != null ? weapons.getAgility() : 0))) ? hitPower *= 1.5
+                : hitPower;
     }
-    
+
     private boolean sideStep() {
-        return (Random.chanceRandom(agility + (weapons != null ? weapons.getAgility() : 0))) ? true : false;
+        return Random.chanceRandom(agility + (weapons != null ? weapons.getAgility() : 0));
     }
-    
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

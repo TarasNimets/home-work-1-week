@@ -1,6 +1,7 @@
 package week5.gladiarot.controller;
 
 import week5.gladiarot.model.gladiators.Gladiator;
+import week5.gladiarot.model.weapons.Weapon;
 import week5.gladiarot.model.weapons.WeaponsGroup;
 
 public final class Arena {
@@ -11,6 +12,13 @@ public final class Arena {
     public Arena(Gladiator one, Gladiator two) {
         this.firstFighter = one;
         this.secondFighter = two;
+    }
+    
+    public Weapon takeWeapon(Gladiator gladiator) {
+        Weapon newWepon = WeaponsGroup.getWeapon();
+        Weapon oldWeapon = gladiator.getWeapons();
+        gladiator.setWeapons(newWepon);
+        return oldWeapon;
     }
 
     public String fight() {
@@ -23,8 +31,8 @@ public final class Arena {
         while (healthOne > 0 && healthTwo > 0) {
             System.out.println("healthOne " + healthOne + "     healthTwo " + healthTwo);
 
-            firstFighter.takeWeapon();
-            secondFighter.takeWeapon();
+            takeWeapon(firstFighter);
+            takeWeapon(secondFighter);
             
             int firstDamage = (int) secondFighter.defence(firstFighter);
             int secondDamage = (int) firstFighter.defence(secondFighter);
