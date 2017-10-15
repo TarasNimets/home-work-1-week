@@ -34,8 +34,11 @@ public final class Arena {
             takeWeapon(firstFighter);
             takeWeapon(secondFighter);
             
-            int firstDamage = (int) secondFighter.defence(firstFighter);
-            int secondDamage = (int) firstFighter.defence(secondFighter);
+            int firstDamage = (int) secondFighter.defence(firstFighter.hit(), firstFighter.getStrength(), 
+                    firstFighter.getWeapons() != null ? firstFighter.getWeapons().getStrength() : 0);
+            int secondDamage = (int) firstFighter.defence(secondFighter.hit(), secondFighter.getStrength(), 
+                    secondFighter.getWeapons() != null ? secondFighter.getWeapons().getStrength() : 0);
+            
             healthOne -= secondDamage;
             healthTwo -= firstDamage;
 

@@ -67,22 +67,24 @@ public abstract class Gladiator {
         this.mentality = mentality;
     }
 
-    private double hit() {
+    public int hit() {
         return HANDS_HIT + Random.getRandom((strength + (weapons != null ? weapons.getStrength() : 0)) / 20)
                 + (weapons != null ? weapons.getAttack() : 0);
     }
 
-    public double defence(Gladiator gladiator) {
+    public double defence(int damage, int fighterStrength, int fighterWeaponStrength) {
         if (sideStep()) return 0;
 
         double hitPower;
         double thisDefence = defence + (weapons != null ? weapons.getDefence() : 0);
-        double gladiatorStrength = gladiator.strength + (gladiator.weapons != null ? gladiator.weapons.getStrength() : 0);
+        double gladiatorStrength = fighterStrength + fighterWeaponStrength;
 
         if (thisDefence < gladiatorStrength) {
-            hitPower = gladiator.hit() * (1.0 + (gladiatorStrength - thisDefence) / 30.0);
+            hitPower = damage * (1.0 + (gladiatorStrength - thisDefence) / 30.0);
+        }else {
+            hitPower = damage / (1.0 + (thisDefence - gladiatorStrength) / 30.0);
         }
-        hitPower = gladiator.hit() / (1.0 + (thisDefence - gladiatorStrength) / 30.0);
+        
         return (Random.chanceRandom(agility + (weapons != null ? weapons.getAgility() : 0))) ? hitPower *= 1.5
                 : hitPower;
     }
