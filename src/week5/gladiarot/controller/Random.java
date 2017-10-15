@@ -10,11 +10,4 @@ public final class Random {
         return (Math.random() * 100) > number ? false : true;
     }
 
-//    public static void main(String[] args) {
-//
-//        for (int i = 0; i < 20; i++) {
-//            System.out.print(getRandom(2) + " ");
-//        }
-//    }
-
 }

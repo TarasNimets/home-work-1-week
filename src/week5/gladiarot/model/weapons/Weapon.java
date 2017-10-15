@@ -8,10 +8,6 @@ public final class Weapon {
     private int defence;
     private int agility;
 
-    public int getAttack() {
-        return attack;
-    }
-
     public Weapon(String name, int attack, int strength, int defence, int agility) {
         this.name = name;
         this.attack = attack;
@@ -20,6 +16,10 @@ public final class Weapon {
         this.agility = agility;
     }
 
+    public int getAttack() {
+        return attack;
+    }
+    
     public String getName() {
         return name;
     }
@@ -40,7 +40,7 @@ public final class Weapon {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(name);
-        builder.append(", attack=");
+        builder.append(" [ attack=");
         builder.append(attack);
         if (strength != 0) {
             builder.append(", strength=");
@@ -54,6 +54,7 @@ public final class Weapon {
             builder.append(", agility=");
             builder.append(agility);
         }
+        builder.append(" ]");
         return builder.toString();
     }
 
