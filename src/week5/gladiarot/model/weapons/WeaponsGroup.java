@@ -6,7 +6,7 @@ import week5.gladiarot.model.weapons.Weapon.WeaponBuilder;
 public final class WeaponsGroup {
 
     private static Weapon[] weapons = new Weapon[10];
-    private static int size = 0;
+    private static int sizeWeapon = 0;
 
     public static void initialization() {
         WeaponBuilder builder = new WeaponBuilder();
@@ -25,20 +25,29 @@ public final class WeaponsGroup {
     }
 
     public static Weapon getWeapon() {
-        return weapons[Random.getRandom(size)];
+        return weapons[Random.getRandom(sizeWeapon)];
     }
 
     public static void add(Weapon weapon) {
-        if (weapons.length <= size) {
+        if (weapons.length <= sizeWeapon) {
             copyGroup();
         }
-        weapons[size++] = weapon;
+        weapons[sizeWeapon++] = weapon;
     }
 
     private static void copyGroup() {
         Weapon[] newGroup = new Weapon[weapons.length * 2];
         System.arraycopy(weapons, 0, newGroup, 0, weapons.length);
         weapons = newGroup;
+    }
+    
+    public static String getAllWeapons() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < sizeWeapon; i++) {
+            builder.append(weapons[i]);
+            builder.append("\n");
+        }
+        return builder.toString();
     }
 
 }

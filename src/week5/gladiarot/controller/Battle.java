@@ -24,8 +24,6 @@ public final class Battle {
 
     public String fight() {
 
-        WeaponsGroup.initialization();
-
         int healthOne = firstFighter.getHealth();
         int healthTwo = secondFighter.getHealth();
 
@@ -56,7 +54,6 @@ public final class Battle {
                             secondDamage, firstFighter.getName()));
 
         }
-
         if (healthOne <= 0 && healthTwo <= 0)
             return "Draw";
         else if (healthOne <= 0)

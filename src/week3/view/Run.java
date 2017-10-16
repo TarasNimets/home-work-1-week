@@ -44,7 +44,7 @@ public class Run {
                     return;
                 }
                 case DEFAULT : {
-                	System.out.println("Incorrect choose. Try again");
+                	school.getScanner().write("Incorrect choose. Try again");
                 }
             }
 

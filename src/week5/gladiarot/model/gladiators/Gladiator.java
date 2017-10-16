@@ -7,23 +7,25 @@ public final class Gladiator {
 
     public static final int HANDS_HIT = 5;
     public static final int HEALTH = 100;
+    public static int GLADIATOR_ID = 1;
 
     private String name;
-    protected int strength;
-    protected int defence;
-    protected int agility;
-    protected int durability;
-    protected int rage;
-    protected Weapon weapon;
+    private int strength;
+    private int defense;
+    private int agility;
+    private int durability;
+    private int rage;
+    private int id;
+    private Weapon weapon;
 
-    public Gladiator(String name, int strength, int defence, int agility, int durability, int rage, Weapon weapon) {
+    public Gladiator(String name, int strength, int defense, int agility, int durability, int rage) {
         this.name = name;
         this.strength = strength;
-        this.defence = defence;
+        this.defense = defense;
         this.agility = agility;
         this.durability = durability;
         this.rage = rage;
-        this.weapon = weapon;
+        this.id = GLADIATOR_ID++;
     }
 
     public String getName() {
@@ -54,12 +56,12 @@ public final class Gladiator {
         this.strength = strength;
     }
 
-    public int getDefence() {
-        return defence;
+    public int getDefense() {
+        return defense;
     }
 
-    public void setDefence(int defence) {
-        this.defence = defence;
+    public void setDefense(int defense) {
+        this.defense = defense;
     }
 
     public int getAgility() {
@@ -85,6 +87,10 @@ public final class Gladiator {
     public void setRage(int rage) {
         this.rage = rage;
     }
+    
+    public int getID() {
+        return id;
+    }
 
     public int hit() {
         return HANDS_HIT + Random.getRandom((strength + (weapon != null ? weapon.getStrength() : 0)) / 20)
@@ -96,13 +102,13 @@ public final class Gladiator {
             return 0;
 
         double hitPower;
-        double thisDefence = defence + (weapon != null ? weapon.getDefence() : 0);
+        double thisDefense = defense + (weapon != null ? weapon.getDefense() : 0);
         double gladiatorStrength = fighterStrength + fighterWeaponStrength;
 
-        if (thisDefence < gladiatorStrength) {
-            hitPower = damage * (1.0 + (gladiatorStrength - thisDefence) / 30.0);
+        if (thisDefense < gladiatorStrength) {
+            hitPower = damage * (1.0 + (gladiatorStrength - thisDefense) / 30.0);
         } else {
-            hitPower = damage / (1.0 + (thisDefence - gladiatorStrength) / 30.0);
+            hitPower = damage / (1.0 + (thisDefense - gladiatorStrength) / 30.0);
         }
 
         return (Random.chanceRandom(agility + (weapon != null ? weapon.getAgility() : 0))) ? hitPower *= 1.5 : hitPower;
@@ -117,10 +123,12 @@ public final class Gladiator {
         StringBuilder builder = new StringBuilder();
         builder.append("Gladiator ");
         builder.append(name);
+        builder.append(", id=");
+        builder.append(id);
         builder.append(", strength=");
         builder.append(strength);
-        builder.append(", defence=");
-        builder.append(defence);
+        builder.append(", defense=");
+        builder.append(defense);
         builder.append(", agility=");
         builder.append(agility);
         builder.append(", durability=");
@@ -136,11 +144,10 @@ public final class Gladiator {
 
         private String name;
         private int strength;
-        private int defence;
+        private int defense;
         private int agility;
         private int durability;
         private int rage;
-        private Weapon weapon;
 
         public GladiatorBuilder() {
 
@@ -156,8 +163,8 @@ public final class Gladiator {
             return this;
         }
 
-        public GladiatorBuilder setDefence(int defence) {
-            this.defence = defence;
+        public GladiatorBuilder setDefense(int defense) {
+            this.defense = defense;
             return this;
         }
 
@@ -176,13 +183,8 @@ public final class Gladiator {
             return this;
         }
 
-        public GladiatorBuilder setWeapon(Weapon weapon) {
-            this.weapon = weapon;
-            return this;
-        }
-
         public Gladiator build() {
-            return new Gladiator(name, strength, defence, agility, durability, rage, weapon);
+            return new Gladiator(name, strength, defense, agility, durability, rage);
         }
 
     }

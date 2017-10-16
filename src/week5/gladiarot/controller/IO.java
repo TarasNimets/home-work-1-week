@@ -8,19 +8,24 @@ public class IO implements MyScanner{
 
     @Override
     public String readString(String message) {
-        System.out.println(message);
+        System.out.print(message + " - ");
         return scanner.next();
     }
 
     @Override
     public int readInt(String message) {
-        System.out.println(message);
+        System.out.print(message + " - ");
         return scanner.nextInt();
     }
 
     @Override
     public void write(String message) {
         System.out.println(message);
+    }
+
+    @Override
+    public void write(Object object) {
+        System.out.println(object);
     }
 
 }

@@ -2,18 +2,22 @@ package week5.gladiarot.model.weapons;
 
 public final class Weapon {
 
+    private static int WEAPON_ID = 1;
+    
     private String name;
     private int attack;
     private int strength;
-    private int defence;
+    private int defense;
     private int agility;
+    private int id;
 
-    public Weapon(String name, int attack, int strength, int defence, int agility) {
+    public Weapon(String name, int attack, int strength, int defense, int agility) {
         this.name = name;
         this.attack = attack;
         this.strength = strength;
-        this.defence = defence;
+        this.defense = defense;
         this.agility = agility;
+        this.id = WEAPON_ID++;
     }
 
     public int getAttack() {
@@ -28,12 +32,16 @@ public final class Weapon {
         return strength;
     }
 
-    public int getDefence() {
-        return defence;
+    public int getDefense() {
+        return defense;
     }
 
     public int getAgility() {
         return agility;
+    }
+    
+    public int getId() {
+        return id;
     }
 
     @Override
@@ -46,9 +54,9 @@ public final class Weapon {
             builder.append(", strength=");
             builder.append(strength);
         }
-        if (defence != 0) {
-            builder.append(", defence=");
-            builder.append(defence);
+        if (defense != 0) {
+            builder.append(", defense=");
+            builder.append(defense);
         }
         if (agility != 0) {
             builder.append(", agility=");
@@ -63,7 +71,7 @@ public final class Weapon {
         private String name;
         private int attack;
         private int strength;
-        private int defence;
+        private int defense;
         private int agility;
 
         public WeaponBuilder() {
@@ -85,8 +93,8 @@ public final class Weapon {
             return this;
         }
 
-        public WeaponBuilder setDefence(int defence) {
-            this.defence = defence;
+        public WeaponBuilder setDefense(int defense) {
+            this.defense = defense;
             return this;
         }
 
@@ -96,7 +104,7 @@ public final class Weapon {
         }
 
         public Weapon build() {
-            return new Weapon(name, attack, strength, defence, agility);
+            return new Weapon(name, attack, strength, defense, agility);
         }
 
     }
