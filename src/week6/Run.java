@@ -10,7 +10,8 @@ public class Run {
 
         Pattern pattern = Pattern.compile("(http|https|ftp)://\\S*?\\.(png|jpg)");
 
-        Request.download(pattern.matcher(Request.getString(Request.getStream(urlString))));
+//        Request.download(pattern.matcher(Request.getString(Request.getStream(urlString))));
+        PathsTest.copy(pattern.matcher(Request.getString(PathsTest.getInputStream(urlString))));
 
     }
 
