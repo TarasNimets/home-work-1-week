@@ -16,15 +16,12 @@ public class OurHashMap<K, V> {
 
     public V put(K key, V value) {
         if (table.length * LOAD_FACTOR < size) {
-            System.out.println("rehashing" + table.length);
             if (!rehashing()) {
                 System.out.println("so much size");
                 return null;
             }
         }
-
         int i = (table.length - 1) & key.hashCode();
-        System.out.println("place " + i);
         V toReturn = null;
 
         if (table[i] == null) {
@@ -36,9 +33,15 @@ public class OurHashMap<K, V> {
             Node<K, V> previous = table[i];
             do {
                 if (current.key.equals(key)) {
-                    toReturn = previous.value;
-                    previous.next = new Node<>(key, value, null);
-                    break;
+                    if (current == previous) {
+                        previous = new Node<>(key, value, previous.next);
+                        toReturn = null;
+                        break;
+                    } else {
+                        toReturn = previous.value;
+                        previous.next = new Node<>(key, value, current.next);
+                        break;
+                    }
                 }
                 if (current.next == null) {
                     current.next = new Node<>(key, value, null);
@@ -49,6 +52,9 @@ public class OurHashMap<K, V> {
                 previous = current;
                 current = current.next;
             } while (true);
+            if (current.equals(table[i]) && current == table[i]) {
+                table[i] = previous;
+            }
         }
         return toReturn;
     }
@@ -62,47 +68,89 @@ public class OurHashMap<K, V> {
         Node<K, V>[] newTable = (Node<K, V>[]) new Node[newLength];
         Node<K, V>[] oldTable = table;
         table = newTable;
-        if (oldTable != null) {
-            for (int k = 0; k < oldTable.length; k++) {
-                Node<K, V> tempNode;
-                if ((tempNode = oldTable[k]) != null) {
-                    oldTable[k] = null;
-                    int i = (table.length - 1) & tempNode.key.hashCode();
-                    if (tempNode.next == null) {
-                        if (table[i] == null) {
-                            table[i] = tempNode;
-                            System.out.println("i" + i);
-                        } else {
-                            // table[i] != null ........ if not empty!!!
-                            System.out.println("i not empty");
+
+        for (int k = 0; k < oldTable.length; k++) {
+            if (oldTable[k] != null) {
+                int j = oldTable[k].key.hashCode() & (table.length - 1);
+                if (oldTable[k].next == null) {
+                    if (table[j] != null) {
+                        Node<K, V> temp = table[j];
+                        while (temp.next != null) {
+                            temp = temp.next;
                         }
-
-                    }else {
-                        Node<K, V> next = null;
-                        Node<K, V> newHead = null;
-                        Node<K, V> oldTail = null;
-                        Node<K, V> oldHead = null;
-
-                        oldHead = tempNode;
-                        do {
-                            next = tempNode.next;
-                            int j = (table.length - 1) & next.key.hashCode();
-                            if (j != i) {
-                                newHead = next;
-                                if (table[j] == null) {
-                                    table[j] = newHead;
-                                    next = null;
-                                    table[i] = oldHead;
-                                }else {
-                                    System.out.println("j not empty");
-                                }
-                            }
-                                
-                        }while ((tempNode = next) != null);
+                        temp.next = oldTable[k];
+                    } else {
+                        table[j] = oldTable[k];
+                    }
+                } else {
+                    Node<K,V> loHead = null, loTail = null;
+                    Node<K,V> hiHead = null, hiTail = null;
+                    Node<K,V> next,e;
+                    e = oldTable[k];
+                    do {
+                        next = e.next;
+                        if ((e.key.hashCode() & oldLength) == 0) {
+                            if (loTail == null)
+                                loHead = e;
+                            else
+                                loTail.next = e;
+                            loTail = e;
+                        }
+                        else {
+                            if (hiTail == null)
+                                hiHead = e;
+                            else
+                                hiTail.next = e;
+                            hiTail = e;
+                        }
+                    } while ((e = next) != null);
+                    if (loTail != null) {
+                        loTail.next = null;
+                        table[k] = loHead;
+                    }
+                    if (hiTail != null) {
+                        hiTail.next = null;
+                        table[k + oldLength] = hiHead;
                     }
                 }
+
+//                    Node<K, V> current;
+//                    Node<K, V> previous = oldTable[k];
+//                    current = oldTable[k].next;
+//                    int t = (table.length - 1) & current.key.hashCode();
+//                    do {
+//                        if (t != j) {
+//                            previous.next = null;
+//                            if (table[j] != null) {
+//                                Node<K, V> temp = table[j];
+//                                while (temp.next != null) {
+//                                    temp = temp.next;
+//                                }
+//                                temp.next = previous;
+//                            } else {
+//                                table[j] = previous;
+//                            }
+//                            if (table[t] != null) {
+//                                Node<K, V> temp = table[t];
+//                                while (temp.next != null) {
+//                                    temp = temp.next;
+//                                }
+//                                temp.next = current;
+//                            } else {
+//                                table[t] = current;
+//                            }
+//                        } else {
+//                            if (current.next == null) {
+//                                table[j] = previous;
+//                            } else {
+//                                System.out.println(oldTable[k]);
+//                            }
+//
+//                        }
+//                    } while (current.next != null);
             }
         }
+
         return true;
     }
 
@@ -112,7 +160,9 @@ public class OurHashMap<K, V> {
 
     @Override
     public String toString() {
-        return "OurHashMap [table=" + Arrays.toString(table) + "]";
+        StringBuilder builder = new StringBuilder();
+        builder.append("OurHashMap [table=").append(Arrays.toString(table)).append("]");
+        return builder.toString();
     }
 
     private static class Node<K, V> {
@@ -129,7 +179,16 @@ public class OurHashMap<K, V> {
 
         @Override
         public String toString() {
-            return "\nNode [key=" + key + ", value=" + value + ", next=" + next + "]";
+            StringBuilder builder = new StringBuilder();
+            builder.append("\nNode [");
+            if (key != null)
+                builder.append("key=").append(key).append(", ");
+            if (value != null)
+                builder.append("value=").append(value);
+            if (next != null)
+                builder.append(", next=").append(next);
+            builder.append("]");
+            return builder.toString();
         }
 
         @Override
