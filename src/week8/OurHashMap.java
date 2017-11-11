@@ -1,7 +1,8 @@
 package week8;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
 
@@ -23,9 +24,7 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
             }
         }
         int i = (table.length - 1) & key.hashCode();
-        // System.out.println("plase " + i + "\nkey=" + key + "value=" + value);
         V toReturn = null;
-
         if (table[i] == null) {
             table[i] = new Node<>(key, value, null);
             toReturn = value;
@@ -62,8 +61,7 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
     }
 
     private final boolean rehashing() {
-        int oldLength = table.length;
-        int newLength = oldLength << 1;
+        int newLength = table.length << 1;
         if (newLength >= Integer.MAX_VALUE)
             return false;
         @SuppressWarnings("unchecked")
@@ -71,11 +69,9 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
         Node<K, V>[] oldTable = table;
         table = newTable;
         Iterator<Entry<K, V>> iterator = iterator(oldTable);
-
         while (iterator.hasNext()) {
             Node<K, V> entry = (Node<K, V>) iterator.next();
             int i = (table.length - 1) & entry.key.hashCode();
-
             if (table[i] == null) {
                 table[i] = entry;
             } else {
@@ -94,10 +90,98 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
         return size;
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public V get(Object key) {
+        int i = (table.length - 1) & key.hashCode();
+        if (table[i] != null) {
+            if (table[i].next == null && table[i].key.equals(key))
+                return table[i].value;
+            else {
+                Node<K, V> current = table[i];
+                Node<K, V> next;
+                while ((next = current.next) != null) {
+                    current = next;
+                    if (next.key.equals(key))
+                        return next.value;
+                }
+            }
+        }
+        return null;
+    }
+    
+    public boolean containsKey(Object key) {
+        return get(key) != null;
+    }
+    
+    public List<K> getKeySet(){
+        Iterator<Entry<K, V>> iterator = iterator();
+        ArrayList<K> arrayList = new ArrayList<>();
+        while (iterator.hasNext()) {
+            arrayList.add(iterator.next().getKey());
+        }
+        return arrayList;
+    }
+    
+    public List<V> getValueSet(){
+        Iterator<Entry<K, V>> iterator = iterator();
+        ArrayList<V> arrayList = new ArrayList<>();
+        while (iterator.hasNext()) {
+            arrayList.add(iterator.next().getValue());
+        }
+        return arrayList;
+    }
+    
+    public V remove(Object key) {
+        if (get(key) == null)
+            return null;
+        V value = null;
+        int i = (table.length - 1) & key.hashCode();
+        if (table[i].next == null && table[i].key.equals(key)) {
+            value = table[i].value;
+            table[i] = null;
+        }else {
+            Node<K, V> current = table[i];
+            Node<K, V> next, previous = table[i];
+            do {
+                next = current.next;
+                if (current.key.equals(key)) {
+                    if (current == table[i]) {
+                        value = current.value;
+                        table[i] = next;
+                    }else {
+                        value = current.value;
+                        current = null;
+                        previous.next = next;
+                    }
+                }
+                previous = current;
+                current = next;
+            }while(next != null);
+            
+            
+//            while ((next = current.next) != null) {
+//                if (current.key.equals(key))
+//                
+//                
+//                current = next;
+//                if (next.key.equals(key))
+//                    return next.value;
+//            }
+        }
+        
+        return value;
+    }
+    
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("OurHashMap [table=").append(Arrays.toString(table)).append("]");
+        Iterator<Entry<K, V>> iterator = iterator();
+        while (iterator.hasNext()) {
+            builder.append(iterator.next()).append("\n");
+        }
         return builder.toString();
     }
 
@@ -117,8 +201,8 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
         public String toString() {
             StringBuilder builder = new StringBuilder();
             builder.append("Node [");
-                builder.append("key=").append(key).append(", ");
-                builder.append("value=").append(value).append("]");
+            builder.append("key=").append(key).append(", ");
+            builder.append("value=").append(value).append("]");
             return builder.toString();
         }
 
@@ -206,12 +290,18 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
         public final Entry<K, V> next() {
             currentNode = nextNode;
             if ((nextNode = currentNode.next) == null) {
-                while (index < tab.length && (nextNode = tab[index++]) == null) { }
+                while (index < tab.length && (nextNode = tab[index++]) == null) {
+                }
             }
-            currentNode.next = null;
-            return currentNode;
+            return ifNextNotNull(currentNode);
         }
 
+        private Entry<K, V> ifNextNotNull(Node<K, V> node) {
+            if (node.next != null) {
+                node.next = null;
+            }
+            return node;
+        }
     }
 
 }

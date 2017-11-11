@@ -9,18 +9,31 @@ public class OurHashMapTest {
 
         OurHashMap<String, Integer> map = new OurHashMap<>();
         HashMap<String, Integer> hashMap = new HashMap<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 350; i++) {
             map.put("" + i, i);
         }
-        // System.out.println(map);
-        int i = 0;
-        Iterator<Entry<String, Integer>> iterator = map.iterator();
-        while (iterator.hasNext()) {
-            System.out.println(iterator.next());
+//        map.put("18", 28);
+         System.out.println(map);
+         
+//         System.out.println(map.remove("8"));
+         System.out.println(map);
+//         System.out.println(map);
+
+//         System.out.println(map.get("999999"));
+         
+         
+//        int i = 0;
+//        Iterator<Entry<String, Integer>> iterator = map.iterator();
+//        while (iterator.hasNext()) {
+////            System.out.println(iterator.next());
 //            iterator.next();
-            i++;
-        }
-        System.out.println(i);
+//            i++;
+//        }
+//        System.out.println(i);
+        
+//        System.out.println(map.containsKey("98"));
+        
+//        System.out.println(map.getKeySet());
 
         // long startMy = System.nanoTime();
         // for (int i = 0; i < 2_000_000; i++) {
