@@ -1,42 +1,41 @@
 package week8;
 
+import java.util.HashMap;
+import java.util.Iterator;
+
 public class OurHashMapTest {
 
     public static void main(String[] args) {
 
         OurHashMap<String, Integer> map = new OurHashMap<>();
-        map.put("" + 12, 0);
-        for (int i = 0; i < 2; i++) {
-            map.put("" + 1, i);
-        }
-        map.put("" + 12, 12);
-        map.put("" + 1, 13);
-        map.put("" + 12, 14);
-        for (int i = 0; i < 1000; i++) {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        for (int i = 0; i < 20; i++) {
             map.put("" + i, i);
         }
+        // System.out.println(map);
+        int i = 0;
+        Iterator<Entry<String, Integer>> iterator = map.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+//            iterator.next();
+            i++;
+        }
+        System.out.println(i);
 
-
-//        System.out.println("Size - " + map.size());
-
-        System.out.println(map);
-        
-//        HashMap<String, Integer> hashMap = new HashMap<>();
-//
-//        hashMap.put("" + 12, 0);
-//        for (int i = 0; i < 2; i++) {
-//            hashMap.put("" + 1, i);
-//        }
-//        hashMap.put("" + 12, 12);
-//        hashMap.put("" + 1, 13);
-//        hashMap.put("" + 12, 14);
-//        for (int i = 0; i < 1000; i++) {
-//            hashMap.put("" + i, i);
-//        }
-//        
-//        System.out.println(hashMap.size());
-//
-//        System.out.println(hashMap);
+        // long startMy = System.nanoTime();
+        // for (int i = 0; i < 2_000_000; i++) {
+        // map.put("" + i, i);
+        // }
+        // long endMy = System.nanoTime();
+        //
+        // long startHash = System.nanoTime();
+        // for (int i = 0; i < 2_000_000; i++) {
+        // hashMap.put("" + i, i);
+        // }
+        // long endHash = System.nanoTime();
+        //
+        // System.out.println("My map - " + (endMy - startMy) / 1_000_000_000.0);
+        // System.out.println("HashMap - " + (endHash - startHash) / 1_000_000_000.0);
     }
 
 }
