@@ -1,4 +1,4 @@
-package week8;
+package week8.hashmap;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -135,10 +135,8 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
     }
 
     public final V remove(Object key) {
-        if (get(key) == null) {
-            System.out.println("get");
+        if (get(key) == null)
             return null;
-        }
         V value = null;
         int i = (table.length - 1) & key.hashCode();
         if (table[i].next == null && table[i].key.equals(key)) {
@@ -159,6 +157,7 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
                         value = current.value;
                         current = null;
                         previous.next = next;
+                        size--;
                     }
                 }
                 previous = current;

@@ -1,9 +1,9 @@
-package week8;
+package week8.hashmap;
 
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class OurHashMapTest {
+public class Run {
 
     public static void main(String[] args) {
 

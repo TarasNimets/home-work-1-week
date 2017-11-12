@@ -1,4 +1,4 @@
-package week8;
+package week8.hashmap;
 
 public interface Entry<K, V> {
 
