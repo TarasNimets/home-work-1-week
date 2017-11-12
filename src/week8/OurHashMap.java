@@ -86,37 +86,37 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
         return true;
     }
 
-    public int size() {
+    public final int size() {
         return size;
     }
 
-    public boolean isEmpty() {
+    public final boolean isEmpty() {
         return size == 0;
     }
 
-    public V get(Object key) {
+    public final V get(Object key) {
         int i = (table.length - 1) & key.hashCode();
         if (table[i] != null) {
-            if (table[i].next == null && table[i].key.equals(key))
+            if (table[i].next == null && table[i].key.equals(key)) {
                 return table[i].value;
-            else {
-                Node<K, V> current = table[i];
-                Node<K, V> next;
-                while ((next = current.next) != null) {
+            } else {
+                Node<K, V> next = table[i];
+                Node<K, V> current;
+                do {
                     current = next;
-                    if (next.key.equals(key))
-                        return next.value;
-                }
+                    if (current.key.equals(key))
+                        return current.value;
+                } while ((next = current.next) != null);
             }
         }
         return null;
     }
-    
-    public boolean containsKey(Object key) {
+
+    public final boolean containsKey(Object key) {
         return get(key) != null;
     }
-    
-    public List<K> getKeySet(){
+
+    public final List<K> getKeySet() {
         Iterator<Entry<K, V>> iterator = iterator();
         ArrayList<K> arrayList = new ArrayList<>();
         while (iterator.hasNext()) {
@@ -124,8 +124,8 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
         }
         return arrayList;
     }
-    
-    public List<V> getValueSet(){
+
+    public final List<V> getValueSet() {
         Iterator<Entry<K, V>> iterator = iterator();
         ArrayList<V> arrayList = new ArrayList<>();
         while (iterator.hasNext()) {
@@ -133,16 +133,19 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
         }
         return arrayList;
     }
-    
-    public V remove(Object key) {
-        if (get(key) == null)
+
+    public final V remove(Object key) {
+        if (get(key) == null) {
+            System.out.println("get");
             return null;
+        }
         V value = null;
         int i = (table.length - 1) & key.hashCode();
         if (table[i].next == null && table[i].key.equals(key)) {
             value = table[i].value;
             table[i] = null;
-        }else {
+            size--;
+        } else {
             Node<K, V> current = table[i];
             Node<K, V> next, previous = table[i];
             do {
@@ -151,7 +154,8 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
                     if (current == table[i]) {
                         value = current.value;
                         table[i] = next;
-                    }else {
+                        size--;
+                    } else {
                         value = current.value;
                         current = null;
                         previous.next = next;
@@ -159,22 +163,11 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
                 }
                 previous = current;
                 current = next;
-            }while(next != null);
-            
-            
-//            while ((next = current.next) != null) {
-//                if (current.key.equals(key))
-//                
-//                
-//                current = next;
-//                if (next.key.equals(key))
-//                    return next.value;
-//            }
+            } while (next != null);
         }
-        
         return value;
     }
-    
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -232,34 +225,34 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
         }
 
         @Override
-        public K getKey() {
+        public final K getKey() {
             return key;
         }
 
         @Override
-        public V getValue() {
+        public final V getValue() {
             return value;
         }
 
     }
 
     @Override
-    public Iterator<Entry<K, V>> iterator() {
-        return new MyIterator();
+    public final Iterator<Entry<K, V>> iterator() {
+        return new CustomIterator();
     }
 
     private Iterator<Entry<K, V>> iterator(Node<K, V>[] oldTable) {
-        return new MyIterator(oldTable);
+        return new ResizeIterator(oldTable);
     }
 
-    private final class MyIterator implements Iterator<Entry<K, V>> {
+    private class CustomIterator implements Iterator<Entry<K, V>> {
 
         Node<K, V>[] tab;
         Node<K, V> nextNode;
         Node<K, V> currentNode;
         int index;
 
-        private MyIterator() {
+        private CustomIterator() {
             tab = table;
             nextNode = null;
             currentNode = null;
@@ -270,7 +263,26 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
             }
         }
 
-        private MyIterator(Node<K, V>[] oldTable) {
+        @Override
+        public boolean hasNext() {
+            return nextNode != null;
+        }
+
+        @Override
+        public Entry<K, V> next() {
+            currentNode = nextNode;
+            if ((nextNode = currentNode.next) == null) {
+                while (index < tab.length && (nextNode = tab[index++]) == null) {
+                }
+            }
+            return currentNode;
+        }
+
+    }
+
+    private final class ResizeIterator extends CustomIterator {
+
+        private ResizeIterator(Node<K, V>[] oldTable) {
             tab = oldTable;
             nextNode = null;
             currentNode = null;
@@ -282,25 +294,14 @@ public class OurHashMap<K, V> implements Iterable<Entry<K, V>> {
         }
 
         @Override
-        public final boolean hasNext() {
-            return nextNode != null;
-        }
-
-        @Override
         public final Entry<K, V> next() {
             currentNode = nextNode;
             if ((nextNode = currentNode.next) == null) {
                 while (index < tab.length && (nextNode = tab[index++]) == null) {
                 }
             }
-            return ifNextNotNull(currentNode);
-        }
-
-        private Entry<K, V> ifNextNotNull(Node<K, V> node) {
-            if (node.next != null) {
-                node.next = null;
-            }
-            return node;
+            currentNode.next = null;
+            return currentNode;
         }
     }
 
