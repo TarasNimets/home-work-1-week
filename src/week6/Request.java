@@ -45,8 +45,10 @@ public class Request {
             inputStream = getStream(url);
 
             try {
-                if (url.endsWith(".png")) fileOutputStream = new FileOutputStream(i++ + ".png");
-                else fileOutputStream = new FileOutputStream(i++ + ".jpg");
+                if (url.endsWith(".png"))
+                    fileOutputStream = new FileOutputStream(i++ + ".png");
+                else
+                    fileOutputStream = new FileOutputStream(i++ + ".jpg");
                 int size = 1024;
                 byte[] buff = new byte[size];
                 int readed = 0;

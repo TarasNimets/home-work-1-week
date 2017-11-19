@@ -98,7 +98,7 @@ public class Window extends JFrame {
         fileMenu.add(openItem);
         fileMenu.add(saveItem);
         fileMenu.add(saveAsItem);
-        
+
         menuBar.add(fileMenu);
 
         JMenu viewMenu = new JMenu("View");

@@ -10,12 +10,12 @@ public class Save {
     private final String text;
     private final String fileName;
 
-    public Save(String text, String fileName){
+    public Save(String text, String fileName) {
         this.text = text;
         this.fileName = fileName;
         saveFile();
     }
-    
+
     public void saveFile() {
         if (fileName != null && !fileName.isEmpty()) {
             Path path = Paths.get(fileName);
@@ -25,7 +25,7 @@ public class Save {
                 System.err.println("Exception : " + e1.getClass().getSimpleName());
                 System.err.println("message : " + e1.getMessage());
             }
-        }else {
+        } else {
             new SaveAsWindow(text);
         }
     }
